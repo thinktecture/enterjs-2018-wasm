@@ -1,4 +1,5 @@
-﻿using FlightFinder.Client.Services;
+﻿using Blazor.Extensions.Storage;
+using FlightFinder.Client.Services;
 using Microsoft.AspNetCore.Blazor.Browser.Rendering;
 using Microsoft.AspNetCore.Blazor.Browser.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ namespace FlightFinder.Client
             var serviceProvider = new BrowserServiceProvider(services =>
             {
                 services.AddSingleton<AppState>();
+                services.AddStorage();
             });
 
             new BrowserRenderer(serviceProvider).AddComponent<Main>("body");
