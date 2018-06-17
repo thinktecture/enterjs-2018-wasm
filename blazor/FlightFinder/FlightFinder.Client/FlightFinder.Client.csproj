@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor.Extensions.Storage" Version="0.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.4.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.4.0" />
   </ItemGroup>
