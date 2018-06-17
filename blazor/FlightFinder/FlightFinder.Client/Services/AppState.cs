@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Blazor;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blazor.Extensions;
 
 namespace FlightFinder.Client.Services
 {
@@ -22,9 +24,14 @@ namespace FlightFinder.Client.Services
 
         // Receive 'http' instance from DI
         private readonly HttpClient http;
-        public AppState(HttpClient httpInstance)
+        private readonly LocalStorage _localStorage;
+
+        public AppState(HttpClient httpInstance, LocalStorage localStorage)
         {
             http = httpInstance;
+            _localStorage = localStorage;
+
+            shortlist = (localStorage.GetItem<Itinerary[]>("shortlist") ?? new Itinerary[0]).ToList();
         }
 
         public async Task Search(SearchCriteria criteria)
@@ -40,12 +47,16 @@ namespace FlightFinder.Client.Services
         public void AddToShortlist(Itinerary itinerary)
         {
             shortlist.Add(itinerary);
+
+            _localStorage.SetItem("shortlist", shortlist);
             NotifyStateChanged();
         }
 
         public void RemoveFromShortlist(Itinerary itinerary)
         {
             shortlist.Remove(itinerary);
+
+            _localStorage.SetItem("shortlist", shortlist);
             NotifyStateChanged();
         }
 
